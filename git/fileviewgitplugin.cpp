@@ -39,8 +39,7 @@
 #include <QDir>
 #include <QTextBrowser>
 
-K_PLUGIN_FACTORY(FileViewGitPluginFactory, registerPlugin<FileViewGitPlugin>();)
-
+K_PLUGIN_CLASS_WITH_JSON(FileViewGitPlugin, "fileviewgitplugin.json")
 FileViewGitPlugin::FileViewGitPlugin(QObject* parent, const QList<QVariant>& args) :
     KVersionControlPlugin(parent),
     m_pendingOperation(false),

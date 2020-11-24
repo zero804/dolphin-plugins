@@ -51,7 +51,7 @@
 
 #include "svncommands.h"
 
-K_PLUGIN_FACTORY(FileViewSvnPluginFactory, registerPlugin<FileViewSvnPlugin>();)
+K_PLUGIN_CLASS_WITH_JSON(FileViewSvnPlugin, "fileviewsvnplugin.json")
 
 FileViewSvnPlugin::FileViewSvnPlugin(QObject* parent, const QList<QVariant>& args) :
     KVersionControlPlugin(parent),

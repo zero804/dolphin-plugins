@@ -34,7 +34,7 @@
 #include <QFileSystemWatcher>
 #include <QStringBuilder>
 
-K_PLUGIN_FACTORY(FileViewDropboxPluginFactory, registerPlugin<FileViewDropboxPlugin>();)
+K_PLUGIN_CLASS_WITH_JSON(FileViewDropboxPlugin, "fileviewdropboxplugin.json")
 
 class FileViewDropboxPlugin::Private
 {

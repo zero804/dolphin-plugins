@@ -4,8 +4,8 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 include(FeatureSummary)
 
-set(QT_MIN_VERSION "5.8.0")
-set(KF5_MIN_VERSION "5.0.0")
+set(QT_MIN_VERSION "5.14.0")
+set(KF5_MIN_VERSION "5.77.0")
 
 find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
     Core

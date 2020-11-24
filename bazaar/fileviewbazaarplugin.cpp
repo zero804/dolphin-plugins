@@ -33,7 +33,7 @@
 #include <QStringList>
 #include <QTextStream>
 
-K_PLUGIN_FACTORY(FileViewBazaarPluginFactory, registerPlugin<FileViewBazaarPlugin>();)
+K_PLUGIN_CLASS_WITH_JSON(FileViewBazaarPlugin, "fileviewbazaarplugin.json")
 
 FileViewBazaarPlugin::FileViewBazaarPlugin(QObject* parent, const QList<QVariant>& args) :
     KVersionControlPlugin(parent),
