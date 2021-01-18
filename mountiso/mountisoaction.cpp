@@ -205,11 +205,15 @@ void unmount(const Solid::Device &device)
 QList<QAction *> MountIsoAction::actions(const KFileItemListProperties &fileItemInfos,
                                          QWidget *parentWidget)
 {
-    if (fileItemInfos.urlList().size() != 1
-        || fileItemInfos.mimeType() != QLatin1String("application/x-cd-image")
-        || !fileItemInfos.isLocal()) {
+    if (fileItemInfos.urlList().size() != 1 || !fileItemInfos.isLocal()) {
         return {};
     };
+
+    const bool isIso = fileItemInfos.mimeType() == QLatin1String("application/x-cd-image");
+
+    if (!isIso && fileItemInfos.mimeType() != QLatin1String("application/x-raw-disk-image")) {
+        return {};
+    }
 
     auto file = fileItemInfos.urlList().at(0).toLocalFile();
 
@@ -224,7 +228,12 @@ QList<QAction *> MountIsoAction::actions(const KFileItemListProperties &fileItem
 
     if (!device.isValid()) {
         const QIcon icon = QIcon::fromTheme(QStringLiteral("media-mount"));
-        const QString title = i18nc("@action:inmenu Action to mount an ISO image", "Mount ISO");
+        QString title;
+        if (isIso) {
+            title = i18nc("@action:inmenu Action to mount an ISO image", "Mount ISO");
+        } else {
+            title = i18nc("@action:inmenu Action to mount a file system image", "Mount Disk Image");
+        }
 
         QAction *action = new QAction(icon, title, parentWidget);
 
@@ -233,8 +242,12 @@ QList<QAction *> MountIsoAction::actions(const KFileItemListProperties &fileItem
     } else {
         // fileItem is mounted on device
         const QIcon icon = QIcon::fromTheme(QStringLiteral("media-eject"));
-        const QString title =
-            i18nc("@action:inmenu Action to unmount an ISO image", "Unmount ISO");
+        QString title;
+        if (isIso) {
+            title = i18nc("@action:inmenu Action to unmount an ISO image", "Unmount ISO");
+        } else {
+            title = i18nc("@action:inmenu Action to unmount a file system image", "Unmount Disk Image");
+        }
         QAction *action = new QAction(icon, title, parentWidget);
 
         connect(action, &QAction::triggered, this, [device]() { unmount(device); });
